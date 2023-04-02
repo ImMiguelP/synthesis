@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <>
-      <Heading>Hello World!</Heading>
+      <Heading>Hello Synthesis!</Heading>
     </>
   );
 }

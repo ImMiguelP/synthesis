@@ -4,7 +4,7 @@ import React from "react";
 
 const NavMenu = () => {
   const handleDownload = () => {
-    window.location.href = "/game";
+    window.location.href = "/synthesis-memory";
   };
 
   return (

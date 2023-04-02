@@ -22,8 +22,8 @@ const Nav = () => {
   const { toggleColorMode } = useColorMode();
   const logoSrc = useColorModeValue("/synLogoBlack.png", "/synLogo.png");
   const buttonIcon = useColorModeValue(
-    <Moon size="32" variant="Bold" />,
-    <Sun1 size="32" variant="Bold" />
+    <Moon size="24" variant="Bold" />,
+    <Sun1 size="24" variant="Bold" />
   );
 
   return (
@@ -32,6 +32,7 @@ const Nav = () => {
         <Link href="/">
           <Image src={logoSrc} alt="logo" h="39px" />
         </Link>
+        <Text>Synthesis</Text>
       </HStack>
       <HStack>
         <NavMenu />

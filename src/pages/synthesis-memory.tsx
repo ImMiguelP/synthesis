@@ -4,6 +4,7 @@ import {
   Divider,
   Grid,
   Heading,
+  HStack,
   Stack,
   Text,
   useColorModeValue,
@@ -85,8 +86,12 @@ const synthesisMemory = () => {
   return (
     <Stack w="100%" align="center" justify="center" spacing={5}>
       <Heading>Synthesis Memory Game</Heading>
-      <Text> Turns: {turns} </Text>
       <Button onClick={newGame}>New Game</Button>
+      <HStack w="50%" justify="space-between" mb={10}>
+        <Text>Player 1: {playerOneScore}</Text>
+        <Text> Turns: {turns} </Text>
+        <Text>Player 2: {playerTwoScore}</Text>
+      </HStack>
       <Divider bgColor={bgColor} h="1px" />
       <Grid templateColumns="repeat(4, 1fr)" gap={6}>
         {cards.map((card) => (

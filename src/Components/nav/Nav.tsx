@@ -30,9 +30,11 @@ const Nav = () => {
     <Flex w="100%" as="header" py={5} justify="space-between" px={0} zIndex={1}>
       <HStack h="39px" zIndex={1}>
         <Link href="/">
-          <Image src={logoSrc} alt="logo" h="39px" />
+          <HStack>
+            <Image src={logoSrc} alt="logo" h="39px" />
+            <Text>Synthesis</Text>
+          </HStack>
         </Link>
-        <Text>Synthesis</Text>
       </HStack>
       <HStack>
         <NavMenu />

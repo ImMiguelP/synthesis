@@ -18,6 +18,15 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
+const cardImages = [
+  { src: "/images/synMemory/cat.png", matched: false },
+  { src: "/images/synMemory/dog.png", matched: false },
+  { src: "/images/synMemory/frog.png", matched: false },
+  { src: "/images/synMemory/ghost.png", matched: false },
+  { src: "/images/synMemory/heart.png", matched: false },
+  { src: "/images/synMemory/spaceship.png", matched: false },
+];
+
 const synthesisMemory = () => {
   const [cards, setCards] = useState<Card[]>([]);
   // uncomment to add turns
@@ -25,39 +34,29 @@ const synthesisMemory = () => {
   const [firstCard, setFirstCard] = useState<Card | null>(null);
   const [secondCard, setSecondCard] = useState<Card | null>(null);
   const [disabled, setDisabled] = useState(false);
-  const [playerOneScore, setPlayerOneScore] = useState(0);
-  const [playerTwoScore, setPlayerTwoScore] = useState(0);
+  const [scores, setScores] = useState({ playerOne: 0, playerTwo: 0 });
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [gameOver, setGameOver] = useState(false);
 
   const bgColor = useColorModeValue("black", "white");
-  const cardImages = [
-    { src: "/images/synMemory/cat.png", matched: false },
-    { src: "/images/synMemory/dog.png", matched: false },
-    { src: "/images/synMemory/frog.png", matched: false },
-    { src: "/images/synMemory/ghost.png", matched: false },
-    { src: "/images/synMemory/heart.png", matched: false },
-    { src: "/images/synMemory/spaceship.png", matched: false },
-  ];
 
   const newGame = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
+    setCards(shuffledCards);
     setFirstCard(null);
     setSecondCard(null);
-    setCards(shuffledCards);
     // uncomment to reset turns
     // setTurns(0);
     setCurrentPlayer(1);
-    setPlayerOneScore(0);
-    setPlayerTwoScore(0);
+    setScores({ playerOne: 0, playerTwo: 0 });
     setGameOver(false);
   };
 
   const handleCardClick = (card: Card) => {
     if (!disabled && !card.matched) {
-      setFirstCard(firstCard ? firstCard : card);
+      setFirstCard(firstCard || card);
       setSecondCard(firstCard ? card : null);
     }
   };
@@ -65,23 +64,25 @@ const synthesisMemory = () => {
   useEffect(() => {
     if (firstCard && secondCard) {
       setDisabled(true);
+
       if (firstCard.src === secondCard.src) {
         setCards((prev) => {
-          return prev.map((card) => {
-            if (card.src === firstCard.src) {
-              return { ...card, matched: true };
-            } else {
-              return card;
-            }
-          });
+          return prev.map((card) =>
+            card.src === firstCard.src ? { ...card, matched: true } : card
+          );
         });
+
         setCurrentPlayer(currentPlayer === 1 ? 1 : 2);
-        setPlayerOneScore(
-          currentPlayer === 1 ? playerOneScore + 1 : playerOneScore
-        );
-        setPlayerTwoScore(
-          currentPlayer === 2 ? playerTwoScore + 1 : playerTwoScore
-        );
+        setScores((prevScores) => ({
+          playerOne:
+            currentPlayer === 1
+              ? prevScores.playerOne + 1
+              : prevScores.playerOne,
+          playerTwo:
+            currentPlayer === 2
+              ? prevScores.playerTwo + 1
+              : prevScores.playerTwo,
+        }));
         resetCards();
       } else {
         setTimeout(() => {
@@ -92,14 +93,10 @@ const synthesisMemory = () => {
     }
   }, [firstCard, secondCard]);
 
-  useEffect(() => {
-    newGame();
-  }, []);
+  useEffect(newGame, []);
 
   useEffect(() => {
-    if (cards.length > 0 && cards.every((card) => card.matched)) {
-      setGameOver(true);
-    }
+    setGameOver(cards.length > 0 && cards.every((card) => card.matched));
   }, [cards]);
 
   const resetCards = () => {
@@ -111,10 +108,10 @@ const synthesisMemory = () => {
   };
 
   const handleGameOver = () => {
-    return playerOneScore > playerTwoScore
-      ? `Player 1 wins with a score of ${playerOneScore} to ${playerTwoScore}!`
-      : playerTwoScore > playerOneScore
-      ? `Player 2 wins with a score of ${playerTwoScore} to ${playerOneScore}! `
+    return scores.playerOne > scores.playerTwo
+      ? `Player 1 wins with a score of ${scores.playerOne} to ${scores.playerTwo}!`
+      : scores.playerTwo > scores.playerOne
+      ? `Player 2 wins with a score of ${scores.playerTwo} to ${scores.playerOne}! `
       : "It's a tie!";
   };
 
@@ -134,8 +131,8 @@ const synthesisMemory = () => {
           New Game
         </Button>
         <HStack w="50%" justify="space-between" mb={10}>
-          <Text>Player 1: {playerOneScore}</Text>
-          <Text>Player 2: {playerTwoScore}</Text>
+          <Text>Player 1: {scores.playerOne}</Text>
+          <Text>Player 2: {scores.playerTwo}</Text>
         </HStack>
         <Divider bgColor={bgColor} h="1px" />
         <Grid templateColumns="repeat(4, 1fr)" gap={6}>

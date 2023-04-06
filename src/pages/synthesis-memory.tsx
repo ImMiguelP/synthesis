@@ -1,4 +1,5 @@
 import Cards from "@/Components/synMemory/Cards";
+import { Card } from "@/Components/synMemory/types";
 import {
   Button,
   Divider,
@@ -16,12 +17,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-
-type Card = {
-  src: string;
-  id: number;
-  matched: boolean;
-};
 
 const synthesisMemory = () => {
   const [cards, setCards] = useState<Card[]>([]);

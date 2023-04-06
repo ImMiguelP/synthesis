@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  Button,
   Flex,
-  Heading,
   HStack,
   Image,
   useColorMode,
@@ -10,10 +8,6 @@ import {
   Text,
   IconButton,
   Link,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
 } from "@chakra-ui/react";
 import { Moon, Sun1 } from "iconsax-react";
 import NavMenu from "./NavMenu";

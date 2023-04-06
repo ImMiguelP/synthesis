@@ -1,19 +1,15 @@
 import { Box, Image, Stack, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
+import { Card } from "./types";
 
-type Card = { src: string; id: number };
-
-const Cards = ({
-  card,
-  handleCardClick,
-  flipped,
-  disabled,
-}: {
+interface CardsProps {
   card: Card;
-  handleCardClick: any;
+  handleCardClick: (card: Card) => void;
   flipped: boolean;
   disabled: boolean;
-}) => {
+}
+
+const Cards = ({ card, handleCardClick, flipped, disabled }: CardsProps) => {
   const coverImage = useColorModeValue("/synLogoBlack.png", "/synLogo.png");
   const border = useColorModeValue("black", "white");
 

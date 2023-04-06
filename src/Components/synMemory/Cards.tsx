@@ -15,7 +15,6 @@ const Cards = ({
   disabled: boolean;
 }) => {
   const coverImage = useColorModeValue("/synLogoBlack.png", "/synLogo.png");
-  const bgColor = useColorModeValue("white", "black");
   const border = useColorModeValue("black", "white");
 
   const handleCLick = () => {

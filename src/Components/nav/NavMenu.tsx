@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import React from "react";
 
 const NavMenu = () => {
-  const handleDownload = () => {
+  const handleMemoryGame = () => {
     window.location.href = "/synthesis-memory";
   };
 
@@ -13,7 +13,7 @@ const NavMenu = () => {
         Games
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={handleDownload}>Download</MenuItem>
+        <MenuItem onClick={handleMemoryGame}>Synthesis Memory</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
       </MenuList>
     </Menu>

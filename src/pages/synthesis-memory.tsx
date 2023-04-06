@@ -25,7 +25,8 @@ type Card = {
 
 const synthesisMemory = () => {
   const [cards, setCards] = useState<Card[]>([]);
-  const [turns, setTurns] = useState(0);
+  // uncomment to add turns
+  // const [turns, setTurns] = useState(0);
   const [firstCard, setFirstCard] = useState<Card | null>(null);
   const [secondCard, setSecondCard] = useState<Card | null>(null);
   const [disabled, setDisabled] = useState(false);
@@ -51,7 +52,8 @@ const synthesisMemory = () => {
     setFirstCard(null);
     setSecondCard(null);
     setCards(shuffledCards);
-    setTurns(0);
+    // uncomment to reset turns
+    // setTurns(0);
     setCurrentPlayer(1);
     setPlayerOneScore(0);
     setPlayerTwoScore(0);
@@ -108,7 +110,8 @@ const synthesisMemory = () => {
   const resetCards = () => {
     setFirstCard(null);
     setSecondCard(null);
-    setTurns(turns + 1);
+    // if you want to add turns uncomment this line and comment out the one below
+    // setTurns(turns + 1);
     setDisabled(false);
   };
 
@@ -130,8 +133,11 @@ const synthesisMemory = () => {
           <Heading size="md">Player {currentPlayer}'s turn</Heading>
         )}
 
-        <Text>Total Turns: {turns}</Text>
-        <Button onClick={newGame}>New Game</Button>
+        {/* uncomment to add total turns text */}
+        {/* <Text>Total Turns: {turns}</Text> */}
+        <Button colorScheme="blue" onClick={newGame}>
+          New Game
+        </Button>
         <HStack w="50%" justify="space-between" mb={10}>
           <Text>Player 1: {playerOneScore}</Text>
           <Text>Player 2: {playerTwoScore}</Text>
